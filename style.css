@@ -141,44 +141,9 @@ button{
     border-radius: 50px;
     outline: none;
 }
-@media only screen and (max-width:800px){
-
-    nav ul{
-        position: absolute;
-        top: 70px;
-        left: 0;
-        background: none;
-        width: 100%;
-        overflow: hidden;
-    }
-    nav ul li{
-        display: block;
-        margin-right: 50px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    nav ul li a{
-    color: #555;
-    }
-}
-.row-2{
-    justify-content: spaced-between;
-    margin: 100px auto 50px;
-}
-select{
-    border: 1px solid white;
-    padding: 5px;
-}
-select:focus{
-    outline: none;
-}
-.carousel {
-    width: 600px; 
-    height: 610px; 
-    align-items: center;
-  }
-
 @media only screen and (max-width: 600px){
+    
+    
     .row{
         text-align: center;
     }
@@ -216,6 +181,3 @@ select:focus{
   justify-content: center;
   padding-left: 200px;
 }
-#productList {
-    padding-left: 250px;
-  }
