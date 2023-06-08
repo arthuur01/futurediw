@@ -73,12 +73,14 @@ p{
 .col-4{
     flex-basis: 25px;
     padding: 10px;
-    min-width: 200px;
+    min-width: 100px;
     margin-bottom: 50px; 
     transition: transform 0.5s; 
+    text-align: center;
 }
 .col-4 img{
-        width: 100%;
+        width: 40%;
+        margin-left: 10%;
 }
 .titulo{
     text-align:center;
@@ -141,6 +143,7 @@ button{
     border-radius: 50px;
     outline: none;
 }
+
 @media only screen and (max-width: 600px){
     
     
