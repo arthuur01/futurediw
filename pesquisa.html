@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width,initial-scale: 1.0">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Produtos - Future</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='style.css'>
+    <script src='main.js'></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+<script src="script.js" defer></script>
+</head>
+<body>
+    <span id="2"></span>
+    <div class="container">
+        <div class= "navbar">
+            <div class = "logo">
+                <a href="index.html"><img src ="produtos/logo.png" width="125px"></a> 
+            </div>
+            <label for="search"><div class="barradepesquisa"><input type="search" id = "search"></div></label>
+            <nav>
+                <ul id="MenuItems">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pesquisa.html">Produtos</a></li>
+                </ul>
+            </nav>
+    
+       </div>
+    </div>
+<div class = "l">
+    <div class="row row-2">
+        <h2>Todos os produtos</h2>
+        <select id ="filtroSelect">
+            <option value="">Filtro</option>
+            <option value="eletronicos">Eletrônicos</option>
+            <option value="roupas">Roupas</option>
+        </select>
+    </div>
+    <div class = "row product-row">
+
+    </div>
+</div>
+<div class="footer">
+    <div class="marcas">
+        <div class="produtos-principal">
+            <div class="row">
+                <div class="col-5">
+                    <img src="produtos/lacoste.png">
+                </div>
+                <div class="col-5">
+                    <img src="produtos/hyper-x-logo.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="footer-col-1">
+                <h3>Nome</h3>
+                <p>Arthur Miguel Vieira Mapa</p>
+            </div>
+            <div class="footer-col-2">
+                <h3>Curso</h3>
+                <p>Ciência da Computação-Praça da liberdade</p>
+            </div>
+            <div class="footer-col-3">
+                <h3>Matrícula</h3>
+                <p>805086</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     const searchInput = document.getElementById('search');
+        searchInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        let data = [];
+
+        function handleSearch() {
+            const searchTerm = searchInput.value.toLowerCase();
+            window.location.href = `pesquisa.html?query=${encodeURIComponent(searchTerm)}`;
+        }
+
+        function exibirProdutos(produtos) {
+            const productList = document.querySelector('.row.product-row');
+            productList.innerHTML = '';
+
+            produtos.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.classList.add('col-4');
+                productItem.id = product.id;
+                productItem.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h4>${splitProductName(product.title)}</h4>
+                    <div class="nota">
+                        Nota média: ${product.rating.rate}
+                    </div>
+                    <p>$${product.price} ${(product.shipping === 'Free') ? '(Frete Grátis)' : ''}</p>
+                `;
+                productItem.addEventListener('click', () => {
+                    window.location.href = `detalhes.html?id=${product.id}`;
+                });
+                productList.appendChild(productItem);
+            });
+        }
+
+        function applyFilter() {
+            const selectElement = document.getElementById('filtroSelect');
+            const selectedValue = selectElement.value.toLowerCase();
+
+            let filteredProducts = [];
+
+            if (selectedValue === 'eletronicos') {
+                filteredProducts = data.filter(product =>
+                    product.category.toLowerCase() === 'electronics'
+                );
+            } else if (selectedValue === 'roupas') {
+                filteredProducts = data.filter(product =>
+                product.category.toLowerCase().includes('clothing')
+                );
+            } else {
+                filteredProducts = data;
+            }
+
+            exibirProdutos(filteredProducts);
+        }
+
+        fetch('https://fakestoreapi.com/products')
+            .then(response => response.json())
+            .then(products => {
+                data = products;
+
+                
+                const queryString = window.location.search;
+                const urlParams = new URLSearchParams(queryString);
+                const searchTerm = urlParams.get('query');
+
+                if (searchTerm) {
+                    const filteredProducts = data.filter(product =>
+                        product.title.toLowerCase().includes(searchTerm)
+                    );
+                    exibirProdutos(filteredProducts);
+                } else {
+                    
+                    exibirProdutos(data);
+                }
+            })
+            .catch(error => {
+                console.error('Ocorreu um erro:', error);
+            });
+
+        function splitProductName(name) {
+            const words = name.split(" ");
+            const middleIndex = Math.floor(words.length / 2);
+            const firstLine = words.slice(0, middleIndex).join(" ");
+            const secondLine = words.slice(middleIndex).join(" ");
+            return `${firstLine}<br>${secondLine}`;
+        }
+
+        const filtroSelect = document.getElementById('filtroSelect');
+        filtroSelect.addEventListener('change', applyFilter);
+</script>
+</body>
+</html>

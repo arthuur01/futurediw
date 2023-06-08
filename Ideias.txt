@@ -1,0 +1,88 @@
+Nome: FUTURE 
+tema: eletrônicos
+Pagina principal Com alguns produtos 
+uma roleta de imagens talvez
+no final da página colocar informações sobre mim 
+Fones mause teclado
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="produtos/perifericos.png">
+    </div>
+    <div class="carousel-item">
+      <img src="produtos/modelo1.png">
+    </div>
+    <div class="carousel-item">
+      <img src="produtos/setup2.png">
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        autoplay: {
+            delay: 5000, 
+        },
+        loop: true, 
+    });
+</script>
+
+
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="produtos/perifericos.png">
+        </div>
+        <div class="swiper-slide">
+            <img src="produtos/modelo1.png">
+        </div>
+        <div class="swiper-slide">
+            <img src="produtos/setup2.png" >
+        </div>
+    </div>
+</div>
+
+
+
+
+
+const filtroValue = filtroSelect.value;
+
+                    if (filtroValue === '') {
+                        exibirProdutos(data);
+                    } else {
+                        const produtosFiltrados = data.filter(product => {
+                            return product.category.toLowerCase() === filtroValue.toLowerCase();
+                        });
+
+                        exibirProdutos(produtosFiltrados);
+                    }
+                });
+
+                exibirProdutos(data);
+            })
+            .catch(error => {
+                console.error('Ocorreu um erro:', error);
+            });
+
+        function splitProductName(name) {
+            const words = name.split(" ");
+            const middleIndex = Math.floor(words.length / 2);
+            const firstLine = words.slice(0, middleIndex).join(" ");
+            const secondLine = words.slice(middleIndex).join(" ");
+            return `${firstLine}<br>${secondLine}`;
+        }
+    </script>
+</body>
+</html>
+No código acima, as opções do select agora têm valores correspondentes aos valores esperados pela API para as categorias "Eletrônicos" e "Roupas". Em seguida, o código foi atualizado para filtrar os produtos com base no valor selecionado no select e exibir apenas os produtos correspondentes.
+
+Certifique-se de adicionar o CSS e JavaScript necessários e ajustar os links para outras páginas, como "detalhes.html", de acordo com a estrutura do seu projeto.
+
+
+
+
+
+
